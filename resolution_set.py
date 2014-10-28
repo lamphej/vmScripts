@@ -7,18 +7,17 @@ Usage:
   environment variables: ESXI_HOST, ESXI_USER, ESXI_PASS
 """
 from docopt import docopt
-import sys
 import paramiko
 from os import environ as os_env
 
 if __name__ == "__main__":
     arguments = docopt(__doc__, version='resolution_set')
 
-    x_res = int(sys.argv[2])
-    y_res = int(sys.argv[3])
+    x_res = int(arguments["<X>"])
+    y_res = int(arguments["<Y>"])
     vRamSize = x_res * y_res * 4
 
-    vmx_path = sys.argv[1]
+    vmx_path = arguments["<vmxpath>"]
     config_dir = "/vmfs/volumes/" + vmx_path.split('[')[1].split(']')[0].lower() + "/"
     config_dir += vmx_path.split('] ')[1].split('/')[0]
     config_file = vmx_path.split('/')[-1]
